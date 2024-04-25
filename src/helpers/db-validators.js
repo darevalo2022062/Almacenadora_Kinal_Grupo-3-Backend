@@ -14,3 +14,18 @@ export const existenteUsername = async (userName = "") => {
     throw new Error(`El username ${userName} ya fue registrado`);
   }
 };
+
+
+
+//Validadores de existencia
+
+//Usuario
+export const comporbarExistenciaUserName = async (userName = "") => {
+  const existencia = await User.findOne({ userName: userName });
+
+  console.log(userName , " : " , existencia);
+
+  if (!existencia) {
+    throw new Error('El userName no existe en la DB');
+  }
+}
