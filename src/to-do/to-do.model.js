@@ -6,9 +6,8 @@ const ToDo = mongoose.Schema({
         required: [true, "El nombre es obligotario"]
     },
     status: {
-        type: String,
-        enum: ['Pendiente', 'En Proceso', 'Terminado'],
-        default: 'Pendiente'
+        type: Boolean,
+        default: false
     },
     dateBegin: {
         type: Date,

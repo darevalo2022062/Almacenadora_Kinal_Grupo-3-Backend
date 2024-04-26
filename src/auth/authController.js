@@ -14,7 +14,8 @@ export const login = async (req, res) => {
         /* Guarda token en localStorage
         Sera funcional hasta que se corra con fron en navegador */
 
-        localStorage.setItem('userToken', token);
+        //localStorage.setItem('userToken', token);
+        global.userToken = token;
 
         return res.status(200).json({
             msg: "Login exitoso"
