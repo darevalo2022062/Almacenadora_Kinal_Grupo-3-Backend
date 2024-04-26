@@ -15,8 +15,6 @@ export const existenteUsername = async (userName = "") => {
   }
 };
 
-
-
 //Validadores de existencia
 
 //Usuario

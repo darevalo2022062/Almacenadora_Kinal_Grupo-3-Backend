@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
 import userRoutes from '../src/user/user.routes.js'
 import authPath from '../src/auth/auth.routes.js'
+import toDoRoutes from '../src/to-do/to-do.routes.js'
 
 class Server {
     constructor() {
@@ -15,12 +16,11 @@ class Server {
 
         this.userPath = '/almacenadora/v1/users'
         this.authPath = '/almacenadora/v1/auth'
+        this.toDoPath = '/almacenadora/v1/to-do'
 
         this.middlewares();
         this.conectarDB();
         this.routes();
-
-
     }
 
     async conectarDB() {
@@ -37,6 +37,7 @@ class Server {
     routes() {
         this.app.use(this.userPath, userRoutes)
         this.app.use(this.authPath, authPath);
+        this.app.use(this.toDoPath, toDoRoutes);
     }
 
     listen() {
