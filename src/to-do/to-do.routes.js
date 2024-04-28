@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createToDo } from "./to-do.controller.js";
+import { createToDo, editToDo } from "./to-do.controller.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { validarLogin } from "../middlewares/validarLogin.js";
 
@@ -12,6 +12,13 @@ router.post('/createToDo', [
     validarLogin,
     validarCampos],
     createToDo
+);
+
+router.put('/editToDo/:id', [
+    // check('nameTask', 'el nombre es obligatorio').not().isEmpty(),
+    validarLogin,
+    validarCampos],
+    editToDo
 );
 
 

@@ -17,3 +17,34 @@ export const createToDo = async (req, res) => {
         toDoSaved
     });
 }
+
+export const editToDo = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { __v, _id, status, ...rest } = req.body;
+        const taskEdited = await ToDo.findOne({ _id: id });
+
+        if (!taskEdited) {
+            return res.status(404).json({
+                message: "Tarea no encontrada"
+            });
+        }
+
+        if (!taskEdited.status) {
+            return res.status(404).json({
+                message: "Tarea no está activa"
+            });
+        }
+        await ToDo.findByIdAndUpdate(id, rest);
+
+        res.status(200).json({
+            message: "Tarea actualizada exitosamente"
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Error al actualizar la tarea"
+        });
+    }
+}
