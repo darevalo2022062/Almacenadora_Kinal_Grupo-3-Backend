@@ -4,6 +4,7 @@ import { createToDo } from "./to-do.controller.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { validarLogin } from "../middlewares/validarLogin.js";
 import { validarJWT } from "../helpers/validar-jwt.js";
+import { viewToDo } from "./to-do.controller.js";
 
 const router = Router();
 
@@ -16,6 +17,8 @@ router.post('/createToDo',
     ],
     createToDo
 );
+
+router.get('/viewToDo', validarJWT, viewToDo);
 
 
 export default router;

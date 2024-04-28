@@ -18,3 +18,10 @@ export const createToDo = async (req, res) => {
         message: "To-Do creado exitosamente",
     });
 }
+
+export const viewToDo = async (req, res) => {
+    const toDo = await ToDo.find();
+    res.status(200).json({
+        toDo
+    });
+}
