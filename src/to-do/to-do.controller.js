@@ -1,19 +1,20 @@
 import ToDo from "./to-do.model.js";
 import jwt from 'jsonwebtoken';
 import mongoose from "mongoose";
+import User from "../user/user.model.js";
 
 export const createToDo = async (req, res) => {
-    const { nameTask, description, status, dateBegin, dateEnd } = req.body;
-    //const token = localStorage.getItem('userToken');
-    const token = global.userToken;
-    const tokenDecifred = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
-    const nameUser = new mongoose.Types.ObjectId(tokenDecifred.id);
-
+    console.log("HEaders: ", req.headers);
+    const { nameTask, status, dateBegin, dateEnd, nameUser, description } = req.body;
+    let toDoSaved = null;
     const newToDo = new ToDo({ nameTask, status, dateBegin, dateEnd, nameUser, description });
+    await newToDo.save();
+    /* const user = await User.findById(userId);
+     const nameUser = user.firstName + " " + user.lastName;
+     console.log("Se obtiene un nombre: " + nameUser);*/
 
-    const toDoSaved = await newToDo.save();
+
     res.status(201).json({
         message: "To-Do creado exitosamente",
-        toDoSaved
     });
 }

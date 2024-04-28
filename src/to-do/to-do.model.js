@@ -14,11 +14,11 @@ const ToDo = mongoose.Schema({
         default: Date.now
     },
     dateEnd: {
-        type: Date,
+        type: String,
         default: Date.now
     },
     nameUser: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "User",
         required: [true, "El id es obligatorio"]
     },
