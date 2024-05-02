@@ -21,7 +21,26 @@ export const createToDo = async (req, res) => {
 
 export const viewToDo = async (req, res) => {
     const toDo = await ToDo.find();
-    res.status(200).json({
+    res.status(201).json({
         toDo
     });
+}
+
+export const updateToDo = async (req, res) => {
+    const { id } = req.params;
+    const { nameTask, status, dateEnd, description, ...rest} = req.body;
+    const toDo = await ToDo.findByIdAndUpdate(id, ...rest);
+    res.status(201).json({
+        message: "To-Do actualizado exitosamente",
+    });
+}
+
+export const deleteToDo = async (req, res) => {
+    const { id } = req.params;
+    const toDo = await ToDo.findByIdAndDelete(id);
+    res.status(201).json({
+        message: "To-Do eliminado exitosamente",
+        toDo
+    });
+
 }
