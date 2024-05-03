@@ -28,4 +28,12 @@ const ToDo = mongoose.Schema({
     }
 });
 
+
+ToDo.methods.toJSON = function () {
+    const { __v, _id, ...toDo } = this.toObject();
+    toDo.dateBegin=this.dateBegin.toISOString().substring(0, 10);
+    toDo.id = _id;
+    return toDo;
+}
+
 export default mongoose.model('ToDo', ToDo);

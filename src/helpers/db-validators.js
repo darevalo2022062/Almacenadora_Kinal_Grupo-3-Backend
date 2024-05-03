@@ -21,8 +21,6 @@ export const existenteUsername = async (userName = "") => {
 export const comporbarExistenciaUserName = async (userName = "") => {
   const existencia = await User.findOne({ userName: userName });
 
-  console.log(userName , " : " , existencia);
-
   if (!existencia) {
     throw new Error('El userName no existe en la DB');
   }

@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import User from "../user/user.model.js";
 
 export const createToDo = async (req, res) => {
-    console.log("HEaders: ", req.headers);
     const { nameTask, status, dateBegin, dateEnd, nameUser, description } = req.body;
     let toDoSaved = null;
     const newToDo = new ToDo({ nameTask, status, dateBegin, dateEnd, nameUser, description });
@@ -21,6 +20,7 @@ export const createToDo = async (req, res) => {
 
 export const viewToDo = async (req, res) => {
     const toDo = await ToDo.find();
+    
     res.status(201).json({
         toDo
     });
@@ -41,8 +41,6 @@ export const updateToDo = async (req, res) => {
             { new: true } 
         );
 
-        console.log('To-Do actualizado: ', updatedToDo);
-
         res.status(200).json({
             message: "To-Do actualizado exitosamente",
             toDo: updatedToDo
@@ -59,7 +57,7 @@ export const updateToDo = async (req, res) => {
 
 export const deleteToDo = async (req, res) => {
     const { id } = req.params;
-    const toDo = await ToDo.findByIdAndDelete(id);
+    const toDo = await ToDo.findByIdAndDelete({ _id: id });
     res.status(201).json({
         message: "To-Do eliminado exitosamente",
         toDo
