@@ -28,12 +28,34 @@ export const viewToDo = async (req, res) => {
 
 export const updateToDo = async (req, res) => {
     const { id } = req.params;
-    const { nameTask, status, dateEnd, description, ...rest} = req.body;
-    const toDo = await ToDo.findByIdAndUpdate(id, ...rest);
-    res.status(201).json({
-        message: "To-Do actualizado exitosamente",
-    });
-}
+
+    try {
+        const toDoStatus = await ToDo.findOne({ _id: id });
+        if (!toDoStatus) {
+            return res.status(404).json({ message: "To-Do no encontrado" });
+        }
+
+        const updatedToDo = await ToDo.findByIdAndUpdate(
+            id,
+            { status: !toDoStatus.status }, 
+            { new: true } 
+        );
+
+        console.log('To-Do actualizado: ', updatedToDo);
+
+        res.status(200).json({
+            message: "To-Do actualizado exitosamente",
+            toDo: updatedToDo
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Error al actualizar To-Do",
+            error: error.message
+        });
+    }
+};
+
 
 export const deleteToDo = async (req, res) => {
     const { id } = req.params;

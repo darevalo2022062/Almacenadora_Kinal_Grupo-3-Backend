@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createToDo, viewToDo, deleteToDo } from "./to-do.controller.js";
+import { createToDo, viewToDo, deleteToDo, updateToDo } from "./to-do.controller.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { validarLogin } from "../middlewares/validarLogin.js";
 import { validarJWT } from "../helpers/validar-jwt.js";
@@ -16,6 +16,8 @@ router.post('/createToDo',
     ],
     createToDo
 );
+
+router.put('/updateToDo/:id', updateToDo);
 
 router.get('/viewToDo', viewToDo);
 
